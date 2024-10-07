@@ -1,0 +1,66 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  display: flex;
+
+  justify-content: center;
+  align-items: flex-start;
+}
+
+main {
+  margin-top: 5rem;
+  width: 300px;
+  padding: 1rem;
+  border: 0.2rem solid blue;
+  border-radius: 0.5rem;
+  display: grid;
+  grid-template-rows: auto auto auto auto 1fr;
+  gap: 1rem;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+}
+
+#filterContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+header {
+  text-align: center;
+}
+
+h1 {
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+.todoInput {
+  margin-top: 1rem;
+  display: inline-block;
+}
+
+ul {
+  margin: 0;
+  padding: 0 0.5rem;
+  border: 0.2rem solid blue;
+  border-radius: 0.25rem;
+  list-style-type: none;
+}
+
+.singleTodo {
+  color: red;
+}
+
+li > input[type="checkbox"] {
+  margin-left: 1rem;
+}
