@@ -13,7 +13,6 @@ class Todo {
     this.#done = done === true || done === false ? done : false;
     //Id wird mit einer zufälligen unique Zahl initialisiert
     this.#todoId = todoId ? todoId : "uui" + window.crypto.randomUUID();
-    console.log(this.#todoId);
     this.#initialize();
   }
 
@@ -152,32 +151,30 @@ class TodoApp {
       this.#renderApp(this.#todosArr);
     }
 
+    status = {
+      all: true,
+      open: false,
+      done: false,
+    };
+
     if (JSON.parse(localStorage.getItem(this.#saveApp)) !== null) {
       //Erzeugt aus den gespeicherten Daten ein Array
       status = JSON.parse(localStorage.getItem(this.#saveApp));
       //Rekonstruiert den App Staus aus den gespeicherten Daten
       // Status der Radio Buttons
-    } else {
-      // Default Status, falls gespeicherte Daten nicht geladen werden können
-      status = {
-        all: true,
-        open: false,
-        done: false,
-      };
     }
-    console.log(status);
+
     // Gespeicherten Datus in die Klassenvariablen
     // all, open und done zurückschreiben
     this.#all = status.all;
     this.#open = status.open;
     this.#done = status.done;
 
-    // Bug: Eigentlich sollten die Radio Buttons wieder wie beim Speichern
-    // angezeigt werden, passiert aber nicht
-    document.querySelector("#all").selected = this.#all;
-    document.querySelector("#open").selected = this.#open;
-    document.querySelector("#done").selected = this.#done;
-
+    // Buttons wieder auf den gleichen Status setzen
+    // wie beim Speichern
+    document.querySelector("#all").checked = this.#all;
+    document.querySelector("#open").checked = this.#open;
+    document.querySelector("#done").checked = this.#done;
     //Rendert die erzeugten Elemente
     this.#renderApp(this.#todosArr);
   }
@@ -188,6 +185,7 @@ class TodoApp {
   // Todos
   #renderApp(input) {
     let arr = [...input];
+
     // Alle
     if (this.#all === true) {
       arr.forEach((item) => {
@@ -199,7 +197,6 @@ class TodoApp {
     if (this.#open === true) {
       arr.forEach((item) => {
         if (item.done === false) {
-          console.log(item);
           item.renderTodo();
           item.showTodo();
         } else {
@@ -232,6 +229,7 @@ class TodoApp {
     }
     if (todoText === "") return;
     this.#todosArr.push(new Todo(todoText));
+
     //Löscht den Text nach dem einfügen und stellt
     //den ursprünglichen Zustand der Text-Box wieder her
     document.querySelector("#newTodoText").value = "";
@@ -240,7 +238,8 @@ class TodoApp {
   }
 
   //Löscht die Todos mit dem Status done = true
-  #removeTodos(arr) {
+  #removeTodos(input) {
+    let arr = [...input];
     let result = [];
     let delTodo;
     for (let i = 0; i < arr.length; i++) {
@@ -252,6 +251,7 @@ class TodoApp {
       }
     }
     this.#todosArr = [...result];
+    console.log(result);
   }
 
   //Speichert den Zustand der App im local storage
@@ -267,7 +267,6 @@ class TodoApp {
     });
     //Wandelt das Array in ein JSON Objekt um und speichert es
     localStorage.setItem(this.#saveTodos, JSON.stringify(arr));
-    console.log(status);
     //Erzeugt ein Objekt, dass den Staus
     // der RadioButtons speichert
     status = {
