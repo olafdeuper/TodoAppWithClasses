@@ -158,6 +158,7 @@ class TodoApp {
       //Rekonstruiert den App Staus aus den gespeicherten Daten
       // Status der Radio Buttons
     } else {
+      // Default Status, falls gespeicherte Daten nicht geladen werden können
       status = {
         all: true,
         open: false,
@@ -165,9 +166,14 @@ class TodoApp {
       };
     }
     console.log(status);
+    // Gespeicherten Datus in die Klassenvariablen
+    // all, open und done zurückschreiben
     this.#all = status.all;
     this.#open = status.open;
     this.#done = status.done;
+
+    // Bug: Eigentlich sollten die Radio Buttons wieder wie beim Speichern
+    // angezeigt werden, passiert aber nicht
     document.querySelector("#all").selected = this.#all;
     document.querySelector("#open").selected = this.#open;
     document.querySelector("#done").selected = this.#done;
@@ -178,19 +184,19 @@ class TodoApp {
 
   // Rendert die App und stellt die einzelnen Todos je
   // nach Filter (all, open, done) dar.
+  // Zeigt die nicht gefilterten und versteckt die gefilterten
+  // Todos
   #renderApp(input) {
     let arr = [...input];
-    console.log(arr);
+    // Alle
     if (this.#all === true) {
-      console.log("all");
       arr.forEach((item) => {
         item.renderTodo();
         item.showTodo();
       });
     }
-
+    // Open
     if (this.#open === true) {
-      console.log("open");
       arr.forEach((item) => {
         if (item.done === false) {
           console.log(item);
@@ -202,9 +208,8 @@ class TodoApp {
         }
       });
     }
-
+    // done
     if (this.#done === true) {
-      console.log("done");
       arr.forEach((item) => {
         if (item.done === true) {
           item.renderTodo();
@@ -263,11 +268,14 @@ class TodoApp {
     //Wandelt das Array in ein JSON Objekt um und speichert es
     localStorage.setItem(this.#saveTodos, JSON.stringify(arr));
     console.log(status);
+    //Erzeugt ein Objekt, dass den Staus
+    // der RadioButtons speichert
     status = {
       all: this.#all,
       open: this.#open,
       done: this.#done,
     };
+    // Speichert den Zustand der Buttons im local Storage
     localStorage.setItem(this.#saveApp, JSON.stringify(status));
   }
 
@@ -283,7 +291,8 @@ class TodoApp {
     addBtn.addEventListener("click", () => {
       this.#addTodo();
     });
-    //Eigener Event listener, der feuert, wenn sich der done-Status der
+
+    // Eigener Event listener, der feuert, wenn sich der done-Status der
     // Todos ändert um die Darstellung auf dem Bildschirm zu aktualisieren
     addEventListener(
       "changeDone",
@@ -293,11 +302,13 @@ class TodoApp {
       },
       false
     );
+
     //Event Listener für den "Remove done Todos" Button
     // Ruft removeTodos() auf
     removeDoneBtn.addEventListener("click", () => {
       this.#removeTodos(this.#todosArr);
     });
+
     //Event Listener für die drei Radio Buttons, die den
     //Filter für die dargestellten Todos bilden
     //Setzen jeweils die boolschen Flags für die Auswahl der
@@ -323,6 +334,8 @@ class TodoApp {
       this.#saveAppStatus(this.#todosArr);
       this.#renderApp(this.#todosArr);
     });
+
+    //Gespeicherten AppStatus laden
     this.#loadAppData();
   }
 }
