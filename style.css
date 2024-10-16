@@ -8,34 +8,30 @@ html {
 
 body {
   height: 100%;
-  display: flex;
 
+  display: flex;
   justify-content: center;
   align-items: flex-start;
 }
 
 main {
-  margin-top: 5rem;
   width: 300px;
+  margin-top: 5rem;
   padding: 1rem;
   border: 0.2rem solid blue;
   border-radius: 0.5rem;
   display: grid;
-  grid-template-rows: auto auto auto auto 1fr;
+  grid-template-rows: auto auto auto auto auto 1fr;
   gap: 1rem;
   align-content: center;
   align-items: center;
   justify-content: center;
 }
 
-#filterContainer {
+#filter-container {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-}
-
-header {
-  text-align: center;
 }
 
 h1 {
@@ -44,7 +40,7 @@ h1 {
   padding: 0;
 }
 
-.todoInput {
+.todo-input {
   margin-top: 1rem;
   display: inline-block;
 }
@@ -55,10 +51,6 @@ ul {
   border: 0.2rem solid blue;
   border-radius: 0.25rem;
   list-style-type: none;
-}
-
-.singleTodo {
-  color: red;
 }
 
 li > input[type="checkbox"] {

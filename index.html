@@ -10,35 +10,62 @@
     <main>
       <h1>Todo App</h1>
 
-      <form id="filterContainer">
+      <form id="filter-container">
         <div>
-          <input type="radio" name="todoFilter" id="all" />
+          <input
+            type="radio"
+            name="todo-filter"
+            class="radio-filter"
+            id="all"
+            checked
+          />
           <label for="all">All</label>
         </div>
         <div>
-          <input type="radio" name="todoFilter" id="open" />
+          <input
+            type="radio"
+            name="todo-filter"
+            class="radio-filter"
+            id="open"
+          />
           <label for="open">Open</label>
         </div>
         <div>
-          <input type="radio" name="todoFilter" id="done" />
+          <input
+            type="radio"
+            name="todo-filter"
+            class="radio-filter"
+            id="done"
+          />
           <label for="done">Done</label>
         </div>
       </form>
 
-      <button id="removeDoneBtn">Remove done Todos</button>
+      <button id="remove-done-btn">Remove done Todos</button>
 
-      <form class="todoInput">
+      <form class="todo-input">
         <input
           type="text"
-          name="newTodoText"
-          id="newTodoText"
+          name="new-todo-text"
+          id="new-todo-text"
           placeholder="What's up?"
         />
-        <button id="addBtn">Add</button>
+        <button id="add-btn">Add</button>
+      </form>
+      <form>
+        <div>
+          <input type="checkbox" id="date-checkbox" />
+          <label for="date-input">Need any deadline?</label>
+        </div>
+        <div id="create-date-container">
+          <select name="day" id="day"></select>
+          <select name="month" id="month"></select>
+          <select name="year" id="year"></select>
+        </div>
       </form>
 
-      <ul id="todoOutput"></ul>
+      <ul id="todos-output"></ul>
     </main>
-    <script src="main.js"></script>
+    <script src="main.js" type="module"></script>
   </body>
 </html>
